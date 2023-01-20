@@ -6,6 +6,9 @@ const ExpenseForm = (props) => {
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState("");
   const [date, setDate] = useState("");
+
+  const [isExpanded, setExpanded] = useState(false);
+
   // const [input, setInput] = useState({
   //   title: '',
   //   amount: '',
@@ -71,35 +74,49 @@ const ExpenseForm = (props) => {
     setDate("");
   };
 
+  const expandHandler = () => {
+    setExpanded(true);
+  };
+
   return (
     <form onSubmit={submitHandler}>
-      <div className="new-expense__controls">
-        <div className="new-expense__control">
-          <label>Title</label>
-          <input type="text" value={title} onChange={titleChangeHandler} />
+      {isExpanded && (
+        <div>
+          <div className="new-expense__controls">
+            <div className="new-expense__control">
+              <label>Title</label>
+              <input type="text" value={title} onChange={titleChangeHandler} />
+            </div>
+            <div className="new-expense__control">
+              <label>Amount</label>
+              <input
+                type="number"
+                value={amount}
+                min="0"
+                onChange={amountChangeHandler}
+              />
+            </div>
+            <div className="new-expense__control">
+              <label>Date</label>
+              <input
+                type="date"
+                value={date}
+                min="2022-01-01"
+                max="2024-12-31"
+                onChange={dateChangeHandler}
+              />
+            </div>
+          </div>
+
+          <div className="new-expense__actions">
+            <button type="submit">Add Expense</button>
+          </div>
         </div>
-        <div className="new-expense__control">
-          <label>Amount</label>
-          <input
-            type="number"
-            value={amount}
-            min="0"
-            onChange={amountChangeHandler}
-          />
-        </div>
-        <div className="new-expense__control">
-          <label>Date</label>
-          <input
-            type="date"
-            value={date}
-            min="2022-01-01"
-            max="2024-12-31"
-            onChange={dateChangeHandler}
-          />
-        </div>
-      </div>
+      )}
       <div className="new-expense__actions">
-        <button type="submit">Add Expense</button>
+        <button onClick={expandHandler}>
+          Add New Expense
+        </button>
       </div>
     </form>
   );
