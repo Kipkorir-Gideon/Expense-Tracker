@@ -7,7 +7,6 @@ const ExpenseForm = (props) => {
   const [amount, setAmount] = useState("");
   const [date, setDate] = useState("");
 
-  const [isExpanded, setExpanded] = useState(false);
 
   // const [input, setInput] = useState({
   //   title: '',
@@ -74,13 +73,9 @@ const ExpenseForm = (props) => {
     setDate("");
   };
 
-  const expandHandler = () => {
-    setExpanded(true);
-  };
 
   return (
     <form onSubmit={submitHandler}>
-      {isExpanded && (
         <div>
           <div className="new-expense__controls">
             <div className="new-expense__control">
@@ -109,15 +104,10 @@ const ExpenseForm = (props) => {
           </div>
 
           <div className="new-expense__actions">
+            <button type='button' onClick={props.onCancel}>Cancel</button>
             <button type="submit">Add Expense</button>
           </div>
         </div>
-      )}
-      <div className="new-expense__actions">
-        <button onClick={expandHandler}>
-          Add New Expense
-        </button>
-      </div>
     </form>
   );
 };
